@@ -1,0 +1,45 @@
+<html>
+    <head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        li > a{
+            cursor:pointer;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-expand-sm bg-light navbar-light">
+                <ul class="navbar-nav">
+                    <a class="navbar-brand">JavaScript</a>
+                    <li onclick="navbar('ques1')" class="nav-item active">
+                        <a  class="nav-link">Ques 1</a>
+                    </li>
+                    <li onclick="navbar('ques2')" class="nav-item">
+                        <a   class="nav-link">Ques 2</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="container" id="ques1">
+                <div class="row" style="margin:2%;">
+                    <div class="col-md-2">
+                        <button class="btn btn-primary" onclick="addNewCounter();" >Add Counter</button>                
+                    </div>
+                </div>
+            </div>
+            <div class="container d-none" id="ques2">
+                <div class="row" style="margin:2%;">
+                    <div class="col-md-2">
+                        <button class="btn btn-primary" onclick="move(2);" >Move</button>                
+                    </div>
+                </div>
+                <div class="row" style="margin:2%;">
+                    <div id="box" style="height:40px; background:red;" class="col-md-1">
+                                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="./main.js"></script>
+</html>
