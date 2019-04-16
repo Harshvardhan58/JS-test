@@ -1,47 +1,38 @@
 var Counter = function (countercount) {
-    var that ={}
-    that.countercount=countercount;
-    that.count=0;
-    var elem='<div class="row" id="row-'+countercount+'" style="margin:2%;">'+
-        '<div class="col-md-1">'+countercount+'</div>'+
-        '<div class="col-md-1">'+
-            '<button id="decrement-'+countercount+'"  type="button" class="btn btn-secondary btn-sm">'+
-                '&#8722;'+                           
-            '</button>'+
-        '</div>'+
-        '<div class="col-md-2">'+
-            '<div class="form-group">'+
-                '<input value="0" id="counter-'+countercount+'" type="number" disabled class="form-control">'+
-            '</div>'+
-        '</div>'+
-        '<div class="col-md-1">'+
-            '<button id="increment-'+countercount+'" type="button" class="btn btn-secondary btn-sm">'+
-            '&#x2b;'+
-            '</button>'+
-        '</div>'+
-        '<div class="col-md-1">'+
-            '<button id="delete-'+countercount+'" type="button" class="btn btn-danger btn-sm">'+
-                'Delete'+
-            '</button>'+
-        '</div>'+
-     '</div>';
-     var node = document.getElementById('ques1');
-     node.insertAdjacentHTML( 'beforeend',elem);
+    var count=0;
+    var node = document.getElementById('ques1');
+    var elem=document.getElementsByClassName("counter")[0].cloneNode(true);
+    elem.classList.remove('d-none');
+    var tmp = elem.getElementsByTagName('button');
+    var inp = elem.getElementsByTagName('input')[0];
+    elem.getElementsByClassName('countercount')[0].innerHTML=countercount;
+    inp.value=count;
+    for(var i=0;i<tmp.length;i++){
+        var arr=tmp[i].className.split(" ")
+        if(arr.includes('delete')){
+            tmp[i].addEventListener('click',function(){
+                node.removeChild(elem);
+            });
+        }
+        if(arr.includes('increment')){
+            tmp[i].addEventListener('click',function(){
+                inp.value = ++count;
+            });
+        }
+        if(arr.includes('decrement')){
+            tmp[i].addEventListener('click',function(){
+                inp.value = --count;
+            });
+        }
+    }
+    node.appendChild(elem)
+     
+}
 
-     document.getElementById('increment-'+countercount).onclick=function(){
-            document.getElementById("counter-"+that.countercount).value=++that.count;
-     };
-     document.getElementById('decrement-'+countercount).onclick= function(){
-        document.getElementById("counter-"+that.countercount).value=--that.count;
-    }
-    document.getElementById('delete-'+countercount).onclick=function(){
-        var element =  document.getElementById("row-"+countercount);
-        element.parentElement.removeChild(element);
-    }
-}
-var countercount=1;
-function addNewCounter(){
-    Counter(countercount);
-    countercount++;
-}
+var addNewCounter = function(){
+    var countercount=0;
+    return function(){
+        Counter(++countercount);
+    }    
+}();
 
