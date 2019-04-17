@@ -1,5 +1,5 @@
-
-function move(duartion){
+document.getElementById('move').addEventListener('click',function(){
+    var duartion=2;
     var element = document.getElementById("box");
     element.style.left="0px";
     var finalPos = 1000;
@@ -21,4 +21,5 @@ function move(duartion){
         element.style.left = pos + "px"; 
     },duartion);
 
-}
+});
+

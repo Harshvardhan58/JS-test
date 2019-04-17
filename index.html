@@ -8,10 +8,10 @@
             <nav class="navbar navbar-expand-sm bg-light navbar-light">
                 <ul class="navbar-nav">
                     <a class="navbar-brand">JavaScript</a>
-                    <li id="link1" onclick="navbar('ques1')" class="nav-item active">
+                    <li id="link1" class="nav-item active">
                         <a class="nav-link">Ques 1</a>
                     </li>
-                    <li id="link2" onclick="navbar('ques2')" class="nav-item">
+                    <li id="link2" class="nav-item">
                         <a class="nav-link">Ques 2</a>
                     </li>
                 </ul>
@@ -19,7 +19,7 @@
             <div class="container" id="ques1">
                 <div class="row" >
                     <div class="col-md-2">
-                        <button class="btn btn-primary" onclick="addNewCounter();" >Add Counter</button>                
+                        <button class="btn btn-primary" id="add_counter" >Add Counter</button>                
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
             <div class="container d-none" id="ques2">
                 <div class="row">
                     <div class="col-md-2">
-                        <button class="btn btn-primary" onclick="move(2);" >Move</button>                
+                        <button class="btn btn-primary" id="move" >Move</button>                
                     </div>
                 </div>
                 <div class="row">
