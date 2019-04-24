@@ -1,8 +1,9 @@
+
 li > a{
   cursor:pointer;
 }
 .row{
-  margin: 2%;
+  margin: 2% !important;
 }
 #box{
   height:40px;

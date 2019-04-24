@@ -1,51 +1,35 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import './CounterApp.css';
+import {Button,InputNumber,Row,Col,Layout} from 'antd';
 import counterStore from './store/CounterStore';
+const {Content} = Layout;
 @observer
 class MobxCounter extends Component{
-  constructor(props){
-    super(props);
-    this.state={
-      count:0
-    }
-  }
-  increment(){
-    this.setState({
-      count:++this.state.count
-    })
-  }
-  decrement(){
-      this.setState({
-        count:--this.state.count
-      })
-  }
+
   render(){
-      const id = this.props.id;
+      const counter = this.props.counter;
     return (
-        <div className="row MobxCounter" >
-            <div className="col-md-1 countercount"></div>
-            <div className="col-md-1">
-              <button  type="button" onClick={()=>counterStore.decrement(id)} className="btn btn-secondary decrement btn-sm">
+        <Row className="row">
+            <Col span={2}>
+              <Button  type="default" onClick={()=>counter.decrement()} >
                 &#8722;                           
-              </button>
-            </div>
-            <div className="col-md-2">
-              <div className="form-group">
-                <input value={counterStore.counterCount[id]} type="number" disabled className="form-control" />
-              </div>
-            </div>
-            <div className="col-md-1">
-              <button type="button" onClick={()=>counterStore.increment(id)} className="btn btn-secondary increment btn-sm">
+              </Button>
+            </Col>
+            <Col span={3}>
+                <InputNumber value={counter.count} disabled  />
+            </Col>
+            <Col span={2}>
+              <Button type="default" onClick={()=>counter.increment()} >
                 &#x2b;
-              </button>
-            </div>
-            <div className="col-md-1">
-              <button type="button" onClick={()=>counterStore.deleteCounter(id)} className="btn btn-danger delete btn-sm">
+              </Button>
+            </Col>
+            <Col span={2}>
+              <Button type="danger" onClick={()=>this.props.onDelete()} >
                 Delete
-              </button>
-            </div>
-          </div>
+              </Button>
+            </Col>
+          </Row>
     );
   }
 }
@@ -55,21 +39,35 @@ class MobxCounterApp extends Component {
 
   render() {
     const store = counterStore;
-
+    let max;
+    if(store.getMax!==false){
+      max=`Maximum value is ${store.getMax}`;
+    }
+    else{
+      max=``;
+    }
     return (
         
-        <div className="container">
-          <div className="row" >
-            <div className="col-md-3">
-              <button className="btn btn-primary" id="add_counter" onClick={()=>counterStore.addCounter()} >Add MobxCounter</button>                
-            </div>
-          </div>
+        <Content>
+          <Row className="row" >
+            <Col span={6}>
+              <Button type="primary"  onClick={()=>counterStore.addCounter()} >Add MobxCounter</Button>                
+            </Col>
+          </Row>
+          <Row className="row">
+            <Col span={24}>
+              {`No. of Counters are ${store.getCount}`}
+            </Col>
+            <Col span={24}>
+              { max }
+            </Col>
+          </Row>
           {
-          counterStore.counters.map((id)=>(
-            <MobxCounter key={id} id={id}/>
+          counterStore.counters.map((c,id)=>(
+            <MobxCounter key={id}  counter={c} onDelete={()=>store.deleteCounter(id)}/>
           ))
         }
-        </div>
+        </Content>
         
     );
   }

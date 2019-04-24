@@ -1,21 +1,39 @@
-import {observable,action} from 'mobx';
+import {observable,action,computed} from 'mobx';
+class Counter{
+    @observable count =0 ;
+    
+    @action
+    increment() {
+        setTimeout(()=>{
+            this.count = this.count +1;
+        },1000);   
+    }
+    @action
+    decrement() {
+        this.count = this.count -1;
+    }
+}
 class CounterStore{
     @observable counters=[];
-    @observable counterCount={};
+
     @action addCounter = ()=>{
-        let id  = this.counters.length ? this.counters[this.counters.length-1] : 0;
-        this.counters.push(++id);
-        this.counterCount[id]=0;
+        this.counters.push(new Counter());
     }
-    @action deleteCounter = (id)=>{
-        this.counters = this.counters.filter(i=>i!==id);
-        delete this.counterCount[id];
+    @action deleteCounter = (idx)=>{
+        this.counters.splice(idx,1);
     }
-    @action increment = (id)=>{
-        this.counterCount[id]++;
+
+    @computed get getCount(){
+        return this.counters.length;
     }
-    @action decrement = (id) =>{
-        this.counterCount[id]--;
+    @computed get getMax(){
+        let max = this.getCount ? this.counters[0].count : false;
+        for(let i=1;i<this.counters.length;i++){
+            if(this.counters[i].count > max){
+                max = this.counters[i].count;
+            }
+        }
+        return max;
     }
 }
 const counterStore = new CounterStore();

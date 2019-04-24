@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import {Row,Col,Button,InputNumber,Layout} from  'antd';
 import './CounterApp.css';
-
+const {Content} = Layout;
 class Counter extends Component{
   constructor(props){
     super(props);
@@ -10,39 +11,36 @@ class Counter extends Component{
   }
   increment(){
     this.setState({
-      count:++this.state.count
+      count:this.state.count+1
     })
   }
   decrement(){
       this.setState({
-        count:--this.state.count
+        count:this.state.count-1
       })
   }
   render(){
     return (
-<         div className="row counter" >
-            <div className="col-md-1 countercount"></div>
-            <div className="col-md-1">
-              <button  type="button" onClick={()=>this.decrement()} className="btn btn-secondary decrement btn-sm">
+          <Row className="row" >
+            <Col span={2}>
+              <Button type="default" onClick={()=>this.decrement()}>
                 &#8722;                           
-              </button>
-            </div>
-            <div className="col-md-2">
-              <div className="form-group">
-                <input value={this.state.count} type="number" disabled className="form-control" />
-              </div>
-            </div>
-            <div className="col-md-1">
-              <button type="button" onClick={()=>this.increment()} className="btn btn-secondary increment btn-sm">
+              </Button>
+            </Col>
+            <Col span={3}>
+              <InputNumber value={this.state.count} disabled />
+            </Col>
+            <Col span={2}>
+              <Button type="default" onClick={()=>this.increment()}>
                 &#x2b;
-              </button>
-            </div>
-            <div className="col-md-1">
-              <button type="button" onClick={()=>this.props.deleteCounter()} className="btn btn-danger delete btn-sm">
+              </Button>
+            </Col>
+            <Col span={2}>
+              <Button type="danger" onClick={()=>this.props.deleteCounter()}>
                 Delete
-              </button>
-            </div>
-          </div>
+              </Button>
+            </Col>
+          </Row>
     );
   }
 }
@@ -56,7 +54,7 @@ class CounterApp extends Component {
   }
   deleteCounter(id){
     console.log(id);
-    const tmp = this.state.counters.filter(elem=> elem!=id);
+    const tmp = this.state.counters.filter(elem=> elem!==id);
     this.setState({
       counters:tmp
     })
@@ -68,19 +66,18 @@ class CounterApp extends Component {
   render() {
     return (
       
-        <div className="container">
-        {console.log(this.state)}
-          <div className="row" >
-            <div className="col-md-2">
-              <button className="btn btn-primary" id="add_counter" onClick={()=>this.addCounter()} >Add Counter</button>                
-            </div>
-          </div>
+        <Content>
+          <Row className="row">
+            <Col span={3}>
+              <Button type="primary" onClick={()=>this.addCounter()} >Add Counter</Button>                
+            </Col>
+          </Row>
           {
           this.state.counters.map((id)=>(
             <Counter key={id} id={id} deleteCounter={()=>this.deleteCounter(id)}/>
           ))
         }
-        </div>
+        </Content>
         
     );
   }

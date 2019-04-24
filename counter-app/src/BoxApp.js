@@ -1,4 +1,6 @@
 import React,{Component} from 'react';
+import {Row,Col,Layout,Button} from 'antd';
+const {Content} = Layout;
 class BoxApp extends Component{
     constructor(props){
         super(props);
@@ -12,29 +14,35 @@ class BoxApp extends Component{
             clearInterval(this.state.timer);
         }
         const start = Date.now();
-        this.state.timer = setInterval(()=> {
-            const timePassed = Date.now() - start;
-            this.setState({ left: timePassed / 2 });
-            if (timePassed > 2000){
-                clearInterval(this.state.timer);
-                this.setState({
-                    timer:false
-                });
-            } 
-        }, 10);    }
+        this.setState(()=>{
+            const tmp = setInterval(()=> {
+                const timePassed = Date.now() - start;
+                this.setState({ left: timePassed / 2 });
+                if (timePassed > 2000){
+                    clearInterval(this.state.timer);
+                    this.setState({
+                        timer:false
+                    });
+                } 
+            }, 10);
+            return {
+                timer:tmp
+            }
+        })   
+    }
     render(){
         return (
-            <div className="conatiner">
-                <div className="row">
-                    <div className="col-md-2">
-                        <button onClick={()=>this.animateBox()}  className="btn btn-primary" id="move" >Move</button>                
-                    </div>
-                </div>
-                <div className="row">
-                    <div id="box" style={{left:this.state.left}} className="col-md-1">         
-                    </div>
-                </div>
-            </div>
+            <Content>
+                <Row className="row">
+                    <Col span={2}>
+                        <Button type="primary" onClick={()=>this.animateBox()} >Move</Button>                
+                    </Col>
+                </Row>
+                <Row className="row">
+                    <Col id="box" style={{left:this.state.left}} span={2}>         
+                    </Col>
+                </Row>
+            </Content>
         );
     }
 }
