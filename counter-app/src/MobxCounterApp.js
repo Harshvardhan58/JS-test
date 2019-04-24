@@ -3,14 +3,19 @@ import {observer} from 'mobx-react';
 import './CounterApp.css';
 import {Button,InputNumber,Row,Col,Layout} from 'antd';
 import counterStore from './store/CounterStore';
+import styled from 'styled-components';
 const {Content} = Layout;
+const MyRow = styled(Row)`
+  margin:2em;
+  margin-left:4em !important;
+`
 @observer
 class MobxCounter extends Component{
 
   render(){
       const counter = this.props.counter;
     return (
-        <Row className="row">
+        <MyRow >
             <Col span={2}>
               <Button  type="default" onClick={()=>counter.decrement()} >
                 &#8722;                           
@@ -29,7 +34,7 @@ class MobxCounter extends Component{
                 Delete
               </Button>
             </Col>
-          </Row>
+          </MyRow>
     );
   }
 }
@@ -49,19 +54,19 @@ class MobxCounterApp extends Component {
     return (
         
         <Content>
-          <Row className="row" >
+          <MyRow  >
             <Col span={6}>
               <Button type="primary"  onClick={()=>counterStore.addCounter()} >Add MobxCounter</Button>                
             </Col>
-          </Row>
-          <Row className="row">
+          </MyRow>
+          <MyRow >
             <Col span={24}>
               {`No. of Counters are ${store.getCount}`}
             </Col>
             <Col span={24}>
               { max }
             </Col>
-          </Row>
+          </MyRow>
           {
           counterStore.counters.map((c,id)=>(
             <MobxCounter key={id}  counter={c} onDelete={()=>store.deleteCounter(id)}/>

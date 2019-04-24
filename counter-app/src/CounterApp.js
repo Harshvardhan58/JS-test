@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import {Row,Col,Button,InputNumber,Layout} from  'antd';
+import styled from 'styled-components';
 import './CounterApp.css';
 const {Content} = Layout;
+const MyRow = styled(Row)`
+  margin:2em;
+  margin-left:4em !important;
+`
 class Counter extends Component{
   constructor(props){
     super(props);
@@ -21,7 +26,7 @@ class Counter extends Component{
   }
   render(){
     return (
-          <Row className="row" >
+          <MyRow  >
             <Col span={2}>
               <Button type="default" onClick={()=>this.decrement()}>
                 &#8722;                           
@@ -40,7 +45,7 @@ class Counter extends Component{
                 Delete
               </Button>
             </Col>
-          </Row>
+          </MyRow>
     );
   }
 }
@@ -67,11 +72,11 @@ class CounterApp extends Component {
     return (
       
         <Content>
-          <Row className="row">
+          <MyRow >
             <Col span={3}>
               <Button type="primary" onClick={()=>this.addCounter()} >Add Counter</Button>                
             </Col>
-          </Row>
+          </MyRow>
           {
           this.state.counters.map((id)=>(
             <Counter key={id} id={id} deleteCounter={()=>this.deleteCounter(id)}/>

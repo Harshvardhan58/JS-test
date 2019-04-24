@@ -1,6 +1,16 @@
 import React,{Component} from 'react';
 import {Row,Col,Layout,Button} from 'antd';
+import styled from 'styled-components';
 const {Content} = Layout;
+const MyRow = styled(Row)`
+  margin:2em;
+  margin-left:4em !important;
+`
+const MyBox = styled(Col)`
+height:40px;
+width: 40px;
+background:red;
+`
 class BoxApp extends Component{
     constructor(props){
         super(props);
@@ -33,15 +43,15 @@ class BoxApp extends Component{
     render(){
         return (
             <Content>
-                <Row className="row">
+                <MyRow>
                     <Col span={2}>
                         <Button type="primary" onClick={()=>this.animateBox()} >Move</Button>                
                     </Col>
-                </Row>
-                <Row className="row">
-                    <Col id="box" style={{left:this.state.left}} span={2}>         
-                    </Col>
-                </Row>
+                </MyRow>
+                <MyRow>
+                    <MyBox style={{left:this.state.left}} span={1}>         
+                    </MyBox>
+                </MyRow>
             </Content>
         );
     }
