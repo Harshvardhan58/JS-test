@@ -2,16 +2,24 @@ import React,{Component} from 'react';
 class BoxApp extends Component{
     constructor(props){
         super(props);
-        this.boxRef = React.createRef();
+        this.state={
+            left:0,
+            timer:false
+        }
     }
     animateBox(){
-        let box = this.boxRef.current;
+        if(this.state.timer){
+            clearInterval(this.state.timer);
+        }
         const start = Date.now();
-        const timer = setInterval(function() {
+        this.state.timer = setInterval(()=> {
             const timePassed = Date.now() - start;
-            box.style.left = timePassed / 2 + 'px';
+            this.setState({ left: timePassed / 2 });
             if (timePassed > 2000){
-                clearInterval(timer);
+                clearInterval(this.state.timer);
+                this.setState({
+                    timer:false
+                });
             } 
         }, 10);    }
     render(){
@@ -19,11 +27,11 @@ class BoxApp extends Component{
             <div className="conatiner">
                 <div className="row">
                     <div className="col-md-2">
-                        <button onClick={()=>this.animateBox()} className="btn btn-primary" id="move" >Move</button>                
+                        <button onClick={()=>this.animateBox()}  className="btn btn-primary" id="move" >Move</button>                
                     </div>
                 </div>
                 <div className="row">
-                    <div id="box" ref={this.boxRef} className="col-md-1">         
+                    <div id="box" style={{left:this.state.left}} className="col-md-1">         
                     </div>
                 </div>
             </div>
