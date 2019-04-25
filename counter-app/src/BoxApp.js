@@ -17,7 +17,7 @@ class BoxApp extends Component{
         this.state={
             left:0,
             timer:false
-        }
+        }      
     }
     animateBox(){
         if(this.state.timer){
@@ -51,7 +51,7 @@ class BoxApp extends Component{
                 <MyRow>
                     <MyBox style={{left:this.state.left}} span={1}>         
                     </MyBox>
-                </MyRow>
+                </MyRow>    
             </Content>
         );
     }

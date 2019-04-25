@@ -4,9 +4,7 @@ class Counter{
     
     @action
     increment() {
-        setTimeout(()=>{
-            this.count = this.count +1;
-        },1000);   
+        this.count = this.count +1;  
     }
     @action
     decrement() {
